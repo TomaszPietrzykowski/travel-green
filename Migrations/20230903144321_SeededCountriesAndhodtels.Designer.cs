@@ -10,7 +10,7 @@ using TravelGreen.Data;
 
 namespace TravelGreen.Migrations
 {
-    [DbContext(typeof(TraveGreenDbContext))]
+    [DbContext(typeof(TravelGreenDbContext))]
     [Migration("20230903144321_SeededCountriesAndhodtels")]
     partial class SeededCountriesAndhodtels
     {

@@ -9,7 +9,7 @@ using TravelGreen.Data;
 
 namespace TravelGreen.Migrations
 {
-    [DbContext(typeof(TraveGreenDbContext))]
+    [DbContext(typeof(TravelGreenDbContext))]
     partial class TraveGreenDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

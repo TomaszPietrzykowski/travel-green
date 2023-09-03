@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("TravelGreenDbConnectionString");
-builder.Services.AddDbContext<TraveGreenDbContext>(options =>
+builder.Services.AddDbContext<TravelGreenDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });

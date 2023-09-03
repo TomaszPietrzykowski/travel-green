@@ -2,9 +2,9 @@
 
 namespace TravelGreen.Data
 {
-    public class TraveGreenDbContext : DbContext
+    public class TravelGreenDbContext : DbContext
     {
-        public TraveGreenDbContext(DbContextOptions options) : base(options)
+        public TravelGreenDbContext(DbContextOptions options) : base(options)
         {
             
         }

@@ -10,7 +10,7 @@ using TravelGreen.Data;
 
 namespace TravelGreen.Migrations
 {
-    [DbContext(typeof(TraveGreenDbContext))]
+    [DbContext(typeof(TravelGreenDbContext))]
     [Migration("20230903140643_InitialMigration")]
     partial class InitialMigration
     {
