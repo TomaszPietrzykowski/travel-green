@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using TravelGreen.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
