@@ -1,11 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TravelGreen.Models.Country
+﻿namespace TravelGreen.Models.Country
 {
-    public class CreateCountryDto
+    public class CreateCountryDto : BaseCountryDto
     {
-        [Required]
-        public string Name { get; set; }
-        public string CountryCode { get; set; }
     }
 }
