@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelGreen.Data;
 
@@ -11,9 +12,11 @@ using TravelGreen.Data;
 namespace TravelGreen.Migrations
 {
     [DbContext(typeof(TravelGreenDbContext))]
-    partial class TraveGreenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019185836_AddedIdentityTables")]
+    partial class AddedIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,22 +50,6 @@ namespace TravelGreen.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "4498e730-f677-4502-b329-ef6b0c7c9eff",
-                            ConcurrencyStamp = "6482c893-0ce3-4d22-9eeb-281f6de6e6c3",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "8e8cfe86-eb29-4bec-a9f4-b7f5f4928462",
-                            ConcurrencyStamp = "8070f217-ad51-4316-bbfd-e30fa37d46ca",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

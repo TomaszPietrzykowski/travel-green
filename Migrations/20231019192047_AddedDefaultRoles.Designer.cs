@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelGreen.Data;
 
@@ -11,9 +12,11 @@ using TravelGreen.Data;
 namespace TravelGreen.Migrations
 {
     [DbContext(typeof(TravelGreenDbContext))]
-    partial class TraveGreenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019192047_AddedDefaultRoles")]
+    partial class AddedDefaultRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

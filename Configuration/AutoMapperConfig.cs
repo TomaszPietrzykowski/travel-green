@@ -15,6 +15,7 @@ namespace TravelGreen.Configuration
             CreateMap<Country, CountryDetailsDto>().ReverseMap();
 
             CreateMap<Hotel, HotelDto>().ReverseMap();
+            CreateMap<Hotel, CreateHotelDto>().ReverseMap();
         }
     }
 }
