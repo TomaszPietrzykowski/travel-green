@@ -2,6 +2,7 @@
 using TravelGreen.Data;
 using TravelGreen.Models.Country;
 using TravelGreen.Models.Hotel;
+using TravelGreen.Models.Users;
 
 namespace TravelGreen.Configuration
 {
@@ -16,6 +17,8 @@ namespace TravelGreen.Configuration
 
             CreateMap<Hotel, HotelDto>().ReverseMap();
             CreateMap<Hotel, CreateHotelDto>().ReverseMap();
+
+            CreateMap<ApiUser, ApiUserDto>().ReverseMap();
         }
     }
 }
