@@ -20,7 +20,9 @@ builder.Services.AddDbContext<TravelGreenDbContext>(options =>
 
 builder.Services.AddIdentityCore<ApiUser>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<TravelGreenDbContext>();
+    .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("TravelGreenApi")
+    .AddEntityFrameworkStores<TravelGreenDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
