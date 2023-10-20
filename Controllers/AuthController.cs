@@ -38,5 +38,23 @@ namespace TravelGreen.Controllers
 
             return Ok();
         }
+
+        // POST: api/Auth/login
+        [HttpPost]
+        [Route("Login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> Login([FromBody] LoginUserDto userDto)
+        {
+            bool isValidUser = await _authManger.Login(userDto);
+
+            if (!isValidUser)
+            {
+                return Unauthorized();
+            }
+
+            return Ok();
+        }
     }
 }

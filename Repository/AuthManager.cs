@@ -15,6 +15,18 @@ namespace TravelGreen.Repository
             _mapper = mapper;
             _userManager = userManager;
         }
+
+        public async Task<bool> Login(LoginUserDto userDto)
+        { 
+            bool isValid = false;
+            var user = await _userManager.FindByEmailAsync(userDto.Email);
+            if (user != null)
+            {
+                isValid = await _userManager.CheckPasswordAsync(user, userDto.Password);
+            }
+            return isValid;
+        }
+
         public async Task<IEnumerable<IdentityError>> Register(ApiUserDto userDto)
         {
             var user = _mapper.Map<ApiUser>(userDto);
