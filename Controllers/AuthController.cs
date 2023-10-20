@@ -47,14 +47,14 @@ namespace TravelGreen.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Login([FromBody] LoginUserDto userDto)
         {
-            bool isValidUser = await _authManger.Login(userDto);
+            AuthResponseDto authResponse = await _authManger.Login(userDto);
 
-            if (!isValidUser)
+            if (authResponse == null)
             {
                 return Unauthorized();
             }
 
-            return Ok();
+            return Ok(authResponse);
         }
     }
 }

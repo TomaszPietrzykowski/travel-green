@@ -6,6 +6,6 @@ namespace TravelGreen.Contracts
     public interface IAuthManager
     {
         Task<IEnumerable<IdentityError>> Register(ApiUserDto userDto);
-        Task<bool> Login(LoginUserDto userDto);
+        Task<AuthResponseDto> Login(LoginUserDto userDto);
     }
 }
