@@ -17,16 +17,18 @@ namespace TravelGreen.Repository
         private readonly IMapper _mapper;
         private readonly UserManager<ApiUser> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<AuthManager> _logger;
         private ApiUser _user;
 
         private const string _loginProvider = "TravelGreenApi";
         private const string _refreshToken = "RefreshToken";
 
-        public AuthManager(IMapper mapper, UserManager<ApiUser> userManager, IConfiguration configuration)
+        public AuthManager(IMapper mapper, UserManager<ApiUser> userManager, IConfiguration configuration, ILogger<AuthManager> logger)
         {
-            _mapper = mapper;
-            _userManager = userManager;
+            this._mapper = mapper;
+            this._userManager = userManager;
             this._configuration = configuration;
+            this._logger = logger;
         }
 
         public async Task<string> CreateRefreshToken()
@@ -39,15 +41,18 @@ namespace TravelGreen.Repository
         }
 
         public async Task<AuthResponseDto> Login(LoginUserDto userDto)
-        { 
+        {
+            _logger.LogInformation($"Looking for user: {userDto.Email}");
             _user = await _userManager.FindByEmailAsync(userDto.Email);
             bool isValid = await _userManager.CheckPasswordAsync(_user, userDto.Password);
             if (_user == null || isValid == false)
             {
+                if (_user == null) _logger.LogWarning($"User not found: {userDto.Email}");
                 return null;
             }
 
             var token = await GenerateToken();
+            _logger.LogInformation($"Issued token for: {userDto.Email} | Token: {token}");
             return new AuthResponseDto
             {
                 Token = token,

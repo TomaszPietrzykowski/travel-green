@@ -15,12 +15,14 @@ namespace TravelGreen.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ICountriesRepository _countriesRepository;
+        private readonly ILogger _logger;
 
-        public CountriesController(IMapper mapper, ICountriesRepository countriesRepository)
+        public CountriesController(IMapper mapper, ICountriesRepository countriesRepository, ILogger<CountriesController> logger)
         {
 
             this._mapper = mapper;
             this._countriesRepository = countriesRepository;
+            this._logger = logger;
         }
 
         // GET: api/Countries
@@ -40,6 +42,7 @@ namespace TravelGreen.Controllers
 
             if (country == null)
             {
+                _logger.LogWarning($"No record found in {nameof(GetCountry)} with id: {id}");
                 return NotFound();
             }
 
@@ -54,6 +57,7 @@ namespace TravelGreen.Controllers
         [Authorize(Roles = "Administrator,User")]
         public async Task<IActionResult> PutCountry(int id, UpdateCountryDto updateCountryDto)
         {
+            _logger.LogInformation($"Update request on {nameof(PutCountry)}, country id: {id}, payload: {updateCountryDto}");
             if (id != updateCountryDto.Id)
             {
                 return BadRequest("Invalid Record Id");

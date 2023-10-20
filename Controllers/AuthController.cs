@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TravelGreen.Contracts;
 using TravelGreen.Models.Users;
+using TravelGreen.Repository;
 
 namespace TravelGreen.Controllers
 {
@@ -10,10 +11,13 @@ namespace TravelGreen.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthManager _authManger;
+        private readonly ILogger<AuthManager> _logger;
 
-        public AuthController(IAuthManager authManger)
+
+        public AuthController(IAuthManager authManger, ILogger<AuthController> logger)
         {
-            _authManger = authManger;
+            this._authManger = authManger;
+            this._logger = logger;
         }
 
         // POST: api/Auth/register
@@ -24,19 +28,28 @@ namespace TravelGreen.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Register([FromBody] ApiUserDto userDto)
         {
-            var errors = await _authManger.Register(userDto);
-
-            if (errors.Any())
+            _logger.LogInformation($"Registration attempt for {userDto.Email}");
+            try
             {
-                foreach (var error in errors)
+                var errors = await _authManger.Register(userDto);
+
+                if (errors.Any())
                 {
-                    ModelState.AddModelError(error.Code, error.Description);
+                    foreach (var error in errors)
+                    {
+                        ModelState.AddModelError(error.Code, error.Description);
+                    }
+
+                    return BadRequest(ModelState);
                 }
 
-                return BadRequest(ModelState);
+                return Ok();
             }
-
-            return Ok();
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Registration failed for {userDto.Email}, something went wrong in {nameof(Register)}");
+                return Problem($"Registration failed for {userDto.Email}, something went wrong in {nameof(Register)}", statusCode: 500);
+            }
         }
 
         // POST: api/Auth/login
@@ -47,14 +60,24 @@ namespace TravelGreen.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Login([FromBody] LoginUserDto userDto)
         {
-            AuthResponseDto authResponse = await _authManger.Login(userDto);
+            _logger.LogInformation($"Login attempt for {userDto.Email}");
 
-            if (authResponse == null)
+            try
             {
-                return Unauthorized();
-            }
+                AuthResponseDto authResponse = await _authManger.Login(userDto);
 
-            return Ok(authResponse);
+                if (authResponse == null)
+                {
+                    return Unauthorized();
+                }
+
+                return Ok(authResponse);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, $"Login failed for {userDto.Email}, something went wrong in {nameof(Login)}");
+                return Problem($"Something went wrong during login attempt for {userDto.Email}", statusCode: 500);
+            }
         }
 
         // POST: api/Auth/RefreshToken
