@@ -7,6 +7,7 @@ using System.Text;
 using TravelGreen.Configuration;
 using TravelGreen.Contracts;
 using TravelGreen.Data;
+using TravelGreen.Middleware;
 using TravelGreen.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +66,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseSerilogRequestLogging();
 

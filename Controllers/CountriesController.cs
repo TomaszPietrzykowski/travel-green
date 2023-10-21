@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelGreen.Contracts;
 using TravelGreen.Data;
+using TravelGreen.Exceptions;
 using TravelGreen.Models.Country;
 
 namespace TravelGreen.Controllers
@@ -43,7 +44,7 @@ namespace TravelGreen.Controllers
             if (country == null)
             {
                 _logger.LogWarning($"No record found in {nameof(GetCountry)} with id: {id}");
-                return NotFound();
+                throw new NotFoundException(nameof(GetCountry), id);
             }
 
             var mappedCountry = _mapper.Map<CountryDetailsDto>(country);
@@ -67,7 +68,7 @@ namespace TravelGreen.Controllers
 
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(PutCountry), id);
             }
 
             _mapper.Map(updateCountryDto, country);
@@ -112,7 +113,7 @@ namespace TravelGreen.Controllers
             var country = await _countriesRepository.GetAsync(id);
             if (country == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(DeleteCountry), id);
             }
 
             await _countriesRepository.DeleteAsync(id);
