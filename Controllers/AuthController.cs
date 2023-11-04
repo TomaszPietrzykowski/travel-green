@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelGreen.Contracts;
+using TravelGreen.Core.Models.Users;
 using TravelGreen.Models.Users;
 using TravelGreen.Repository;
 
