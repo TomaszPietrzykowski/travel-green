@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TravelGreen.Contracts;
 using TravelGreen.Data;
 
@@ -7,7 +8,7 @@ namespace TravelGreen.Repository
     public class CountriesRepository : GenericRepository<Country>, ICountriesRepository
     {
         private readonly TravelGreenDbContext _context;
-        public CountriesRepository(TravelGreenDbContext context) : base(context)
+        public CountriesRepository(TravelGreenDbContext context, IMapper mapper) : base(context, mapper)
         {
             this._context = context;
         }

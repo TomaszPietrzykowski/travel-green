@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using TravelGreen.Contracts;
 using TravelGreen.Data;
 using TravelGreen.Exceptions;
+using TravelGreen.Models;
 using TravelGreen.Models.Country;
 
 namespace TravelGreen.Controllers
@@ -27,13 +28,21 @@ namespace TravelGreen.Controllers
             this._logger = logger;
         }
 
-        // GET: api/Countries
-        [HttpGet]
+        // GET: api/Countries/GetAll
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<CountryDto>>> GetCountries()
         {
             var countries = await _countriesRepository.GetAllAsync();
             var mappedCountries = _mapper.Map<List<CountryDto>>(countries);
             return Ok(mappedCountries);
+        }
+
+        // GET: api/Countries?StartIndex=0&PageSize=25&PageNumber=1
+        [HttpGet]
+        public async Task<ActionResult<PagedResult<CountryDto>>> GetPagedCountries([FromQuery] QueryParameters queryParameters)
+        {
+            var pagedCoutriesResult = await _countriesRepository.GetAllAsync<CountryDto>(queryParameters);
+            return Ok(pagedCoutriesResult);
         }
 
         // GET: api/Countries/5
