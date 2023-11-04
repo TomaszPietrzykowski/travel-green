@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using TravelGreen.Contracts;
 using TravelGreen.Data;
@@ -30,6 +31,7 @@ namespace TravelGreen.Controllers
 
         // GET: api/Countries/GetAll
         [HttpGet("GetAll")]
+        [EnableQuery]
         public async Task<ActionResult<IEnumerable<CountryDto>>> GetCountries()
         {
             var countries = await _countriesRepository.GetAllAsync();
