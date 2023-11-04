@@ -74,6 +74,11 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
     };
 });
+builder.Services.AddResponseCaching(options =>
+{
+    options.MaximumBodySize = 1024;
+    options.UseCaseSensitivePaths = true;
+});
 
 var app = builder.Build();
 
@@ -91,6 +96,20 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+
+app.UseResponseCaching();
+app.Use(async (context, next) =>
+{
+    context.Response.GetTypedHeaders().CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+    {
+        Public = true,
+        MaxAge = TimeSpan.FromSeconds(30)
+    };
+    context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] = new string[] { "Accept-Encoding" };
+
+    await next();
+});
+
 
 app.UseAuthentication();
 app.UseAuthorization();
