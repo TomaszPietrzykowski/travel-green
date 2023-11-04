@@ -12,14 +12,14 @@ namespace TravelGreen.Controllers
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/countries")]
-    [ApiVersion("2.0")]
-    public class CountriesController : ControllerBase
+    [ApiVersion("1.0", Deprecated = true)]
+    public class CountriesV1Controller : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly ICountriesRepository _countriesRepository;
         private readonly ILogger _logger;
 
-        public CountriesController(IMapper mapper, ICountriesRepository countriesRepository, ILogger<CountriesController> logger)
+        public CountriesV1Controller(IMapper mapper, ICountriesRepository countriesRepository, ILogger<CountriesController> logger)
         {
 
             this._mapper = mapper;
