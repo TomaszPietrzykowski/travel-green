@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34018.315
@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelGreen.Api", "TravelGr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelGreen.Data", "..\TravelGreen.Data\TravelGreen.Data.csproj", "{36C906EC-8FB4-42F6-A456-3BDAD368063F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelGreen.Core", "..\TravelGreen.Core\TravelGreen.Core.csproj", "{9E9DD06C-9C94-4C26-B0B8-F281D4603CEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelGreen.Core", "..\TravelGreen.Core\TravelGreen.Core.csproj", "{9E9DD06C-9C94-4C26-B0B8-F281D4603CEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
